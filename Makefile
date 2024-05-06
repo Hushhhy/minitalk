@@ -6,11 +6,11 @@
 #    By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 13:10:59 by acarpent          #+#    #+#              #
-#    Updated: 2024/05/03 14:41:54 by acarpent         ###   ########.fr        #
+#    Updated: 2024/05/06 12:55:23 by acarpent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	client.c server.c
+SRCS =	client.c server.c minitalk_utils.c
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -43,7 +43,7 @@ clean:
 		make clean -C ft_printf
 
 fclean: clean
-		rm -f $(NAME)
+		rm -f $(NAME) server client
 
 re: fclean all
 

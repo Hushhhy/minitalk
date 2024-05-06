@@ -6,7 +6,7 @@
 /*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:00:50 by acarpent          #+#    #+#             */
-/*   Updated: 2024/05/03 14:23:27 by acarpent         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:09:28 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 int	main(void)
 {
+	int	i;
+
+	i = 0;
 	ft_printf("Server PID : %d\n", getpid());
+	while (1)
+		i++;
 }
