@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putstrlen.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 11:01:11 by acarpent          #+#    #+#             */
-/*   Updated: 2024/05/16 13:00:40 by acarpent         ###   ########.fr       */
+/*   Created: 2023/12/15 13:47:04 by acarpent          #+#    #+#             */
+/*   Updated: 2023/12/18 15:06:45 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "ft_printf.h"
+#include <stdio.h>
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "ft_printf.h"
-# include "libft.h"
+int	ft_putstrlen(char *s)
+{
+	int	i;
 
-char	*to_string(char *s1, char byte);
-void	ft_sigsend(int pid, char *msg);
-char	*to_string(char *s1, char byte);
-void	signal_handle(int signum);
-void	ft_signal(int signum, int result, char *final, int counter);
-
-#endif
+	i = 0;
+	if (s == NULL)
+		return (ft_putstrlen("(null)"));
+	while (s[i])
+	{
+		ft_putcharlen(s[i]);
+		i++;
+	}
+	return (i);
+}

@@ -6,42 +6,38 @@
 /*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:00:52 by acarpent          #+#    #+#             */
-/*   Updated: 2024/05/06 14:39:45 by acarpent         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:37:53 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	ft_atoi(const char *str)
+void	ft_sigsend(int pid, char *msg)
 {
-	long	i;
-	long	min;
-	long	result;
+	int	byte;
+	int	i;
 
+	byte = 0;
+	while (msg[byte])
+	{
+		i = 8;
+		while (--i >= 0)
+		{
+			if ((msg[byte] & 1 << i) == 0)
+				kill(pid, SIGUSR1);
+			else
+				kill(pid, SIGUSR2);
+			usleep(50);
+		}
+		byte++;
+	}
 	i = 0;
-	min = 1;
-	result = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	while (i++ < 8)
 	{
-		if (str[i] == '-')
-			min *= -1;
-		i++;
+		kill(pid, SIGUSR1);
+		usleep(50);
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result *= 10;
-		result += str[i] - 48;
-		i++;
-	}
-	return (result *= min);
 }
-
-// void	ft_encrypt(int pid, char *msg)
-// {
-	
-// }
 
 int	main(int ac, char **av)
 {
@@ -51,7 +47,7 @@ int	main(int ac, char **av)
 	if (ac == 3)
 	{
 		pid = ft_atoi(av[1]);
-		if (!pid || ft_check(pid) == 0)
+		if (!pid)
 		{
 			ft_printf("Error\n");
 			return (0);
@@ -62,7 +58,7 @@ int	main(int ac, char **av)
 			ft_printf("Error\n");
 			return (0);
 		}
-		ft_encrypt(pid, message);
+		ft_sigsend(pid, message);
 	}
 	else
 		ft_printf("Missing Arguments !\n");

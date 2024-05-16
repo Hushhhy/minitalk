@@ -6,11 +6,11 @@
 #    By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 13:10:59 by acarpent          #+#    #+#              #
-#    Updated: 2024/05/06 12:55:23 by acarpent         ###   ########.fr        #
+#    Updated: 2024/05/16 12:50:34 by acarpent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	client.c server.c minitalk_utils.c
+SRCS =	client.c server.c
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -18,28 +18,33 @@ NAME = minitalk
 
 CC = cc
 
+all: server client 
+
 %.o:	%.c
-			${CC} ${CFLAGS} -Ift_printf -c $? -o $@
+			${CC} ${CFLAGS} -Ilibft -Ift_printf -c $? -o $@
 
 server:		server.o
+			@make -C libft
 			@make -C ft_printf
-			${CC} ${CFLAGS} $? -Lft_printf -lftprintf -o server
+			${CC} ${CFLAGS} $? -Llibft -lft -Lft_printf -lftprintf -o server
 
 client:		client.o
+			@make -C libft
 			@make -C ft_printf
-			${CC} ${CFLAGS} $? -Lft_printf -lftprintf -o client
+			${CC} ${CFLAGS} $? -Llibft -lft -Lft_printf -lftprintf -o client
 
 CFLAGS = -Wall -Werror -Wextra
 
+libft:		make -C libft
+	
 printf:		make -C ft_printf
-
-all: server client
 
 $(NAME):	$(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 		rm -f *.o
+		make clean -C libft 
 		make clean -C ft_printf
 
 fclean: clean
@@ -47,4 +52,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re ft_printf
+.PHONY: all clean fclean re libft ft_printf

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putnbrlen.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 11:01:11 by acarpent          #+#    #+#             */
-/*   Updated: 2024/05/16 13:00:40 by acarpent         ###   ########.fr       */
+/*   Created: 2023/12/15 16:06:54 by acarpent          #+#    #+#             */
+/*   Updated: 2023/12/18 15:06:35 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "ft_printf.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "ft_printf.h"
-# include "libft.h"
+int	ft_putnbrlen(int n)
+{
+	int	len;
 
-char	*to_string(char *s1, char byte);
-void	ft_sigsend(int pid, char *msg);
-char	*to_string(char *s1, char byte);
-void	signal_handle(int signum);
-void	ft_signal(int signum, int result, char *final, int counter);
-
-#endif
+	len = 0;
+	if (n == -2147483648)
+		return (ft_putstrlen("-2147483648"));
+	if (n < 0)
+	{
+		len += ft_putcharlen('-');
+		n = -n;
+	}
+	if (n > 9)
+		len += ft_putnbrlen(n / 10);
+	return (len += ft_putcharlen((n % 10) + 48));
+}
