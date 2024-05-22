@@ -6,93 +6,80 @@
 /*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:00:50 by acarpent          #+#    #+#             */
-/*   Updated: 2024/05/16 13:03:39 by acarpent         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:10:03 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	ft_power(int nb, int power)
+char	*ft_straddc(char *str, char c)
 {
-	int	res;
-
-	if (power == 0)
-		return (1);
-	else if (power < 0)
-		return (0);
-	else
-	{
-		res = nb * ft_power(nb, power - 1);
-		return (res);
-	}
-}
-
-char	*to_string(char *s1, char byte)
-{
+	char	*new;
 	int		i;
-	int		j;
-	char	*tab;
 
 	i = 0;
-	j = 0;
-	tab = malloc((ft_strlen(s1) + 2) * sizeof(char));
-	if (!tab)
-		return (NULL);
-	while (s1[i])
-		tab[j++] = s1[i++];
-	i = 0;
-	tab[j++] = byte;
-	tab[j] = 0;
-	free((void *)(s1));
-	return (tab);
-}
-
-void	ft_signal(int signum, int result, char *final, int counter)
-{
-	if (!final)
-		final = ft_strdup("");
-	if (signum == SIGUSR1)
-		result = result + 0;
-	else if (signum == SIGUSR2)
-		result = result + (1 * ft_power(2, 7 - counter));
-}
-
-void	signal_handle(int signum)
-{
-	int		counter;
-	int		len;
-	int		result;
-	char	*final;
-
-	counter = 0;
-	result = 0;
-	len = 0;
-	final = NULL;
-	ft_signal(signum, result, final, counter);
-	counter++;
-	if (counter == 8)
+	if (!str)
 	{
-		final = to_string(final, result);
-		if (result == '\0')
+		new = (char *)malloc(sizeof(char) * 2);
+		if (!new)
+			return (0);
+		new[0] = c;
+		new[1] = '\0';
+		return (new);
+	}
+	new = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2));
+	if (!new)
+		return (0);
+	while (str[i])
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[i] = c;
+	new[i + 1] = '\0';
+	free(str);
+	return (new);
+}
+
+void	ft_sighandle(int signum, siginfo_t *info, void *context)
+{
+	static char		*msg = 0;
+	static int		byte;
+	static int		i;
+
+	(void)context;
+	if (signum == SIGUSR1)
+		i |= (0x01 << byte);
+	byte++;
+	if (byte == 8)
+	{
+		if (i == 4)
 		{
-			ft_printf("%s\n", final);
-			final = NULL;
+			ft_printf("{%d} %s\n", info->si_pid, msg);
+			free(msg);
+			msg = 0;
+			kill(info->si_pid, SIGUSR2);
 		}
-		counter = 0;
-		result = 0;
-		len++;
+		else
+			msg = ft_straddc(msg, i);
+		byte = 0;
+		i = 0;
 	}
 }
 
 int	main(void)
 {
-	struct sigaction	signal_received;
+	struct sigaction	sa;
 
+	ft_memset(&sa, 0, sizeof(sa));
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = ft_sighandle;
 	ft_printf("Server PID : %d\n", getpid());
-	signal_received.sa_handler = signal_handle;
-	signal_received.sa_flags = 0;
-	sigaction(SIGUSR1, &signal_received, NULL);
-	sigaction(SIGUSR2, &signal_received, NULL);
 	while (1)
-		usleep(50);
+	{
+		sigaction(SIGUSR1, &sa, NULL);
+		sigaction(SIGUSR2, &sa, NULL);
+		pause();
+	}
+	return (0);
 }

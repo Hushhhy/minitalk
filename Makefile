@@ -6,7 +6,7 @@
 #    By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 13:10:59 by acarpent          #+#    #+#              #
-#    Updated: 2024/05/16 12:50:34 by acarpent         ###   ########.fr        #
+#    Updated: 2024/05/22 12:56:56 by acarpent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ client:		client.o
 			@make -C ft_printf
 			${CC} ${CFLAGS} $? -Llibft -lft -Lft_printf -lftprintf -o client
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 
 libft:		make -C libft
 	
