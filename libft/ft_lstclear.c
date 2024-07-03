@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstrlen.c                                     :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 13:47:04 by acarpent          #+#    #+#             */
-/*   Updated: 2024/06/24 14:03:26 by acarpent         ###   ########.fr       */
+/*   Created: 2023/11/18 12:26:14 by acarpent          #+#    #+#             */
+/*   Updated: 2023/11/18 12:28:09 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstrlen(char *s)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	int	i;
+	t_list	*tmp;
 
-	i = 0;
-	if (s == NULL)
-		return (ft_putstrlen("(null)"));
-	while (s[i])
+	while (*lst)
 	{
-		ft_putcharlen(s[i]);
-		i++;
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = tmp;
 	}
-	return (i);
+	free (*lst);
+	*lst = NULL;
 }

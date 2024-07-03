@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstrlen.c                                     :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 13:47:04 by acarpent          #+#    #+#             */
-/*   Updated: 2024/06/24 14:03:26 by acarpent         ###   ########.fr       */
+/*   Created: 2023/11/17 14:38:14 by acarpent          #+#    #+#             */
+/*   Updated: 2023/11/17 15:08:47 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstrlen(char *s)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	i;
+	size_t	i;
+	char	*str;
 
 	i = 0;
-	if (s == NULL)
-		return (ft_putstrlen("(null)"));
-	while (s[i])
+	str = malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	while (i < ft_strlen(s))
 	{
-		ft_putcharlen(s[i]);
+		str[i] = (*f)(i, s[i]);
 		i++;
 	}
-	return (i);
+	str[i] = '\0';
+	return (str);
 }

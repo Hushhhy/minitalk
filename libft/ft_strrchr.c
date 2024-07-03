@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstrlen.c                                     :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 13:47:04 by acarpent          #+#    #+#             */
-/*   Updated: 2024/06/24 14:03:26 by acarpent         ###   ########.fr       */
+/*   Created: 2023/11/11 11:50:15 by acarpent          #+#    #+#             */
+/*   Updated: 2023/11/16 14:53:55 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstrlen(char *s)
+char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	unsigned int	i;
+	char			*res;
+	char			cc;
 
+	cc = (char) c;
+	res = NULL;
 	i = 0;
-	if (s == NULL)
-		return (ft_putstrlen("(null)"));
 	while (s[i])
 	{
-		ft_putcharlen(s[i]);
+		if (s[i] == cc)
+			res = (char *) &s[i];
 		i++;
 	}
-	return (i);
+	if (s[i] == cc)
+		res = (char *) &s[i];
+	return (res);
 }

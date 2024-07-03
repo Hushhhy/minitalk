@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstrlen.c                                     :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 13:47:04 by acarpent          #+#    #+#             */
-/*   Updated: 2024/06/24 14:03:26 by acarpent         ###   ########.fr       */
+/*   Created: 2023/11/13 15:07:23 by acarpent          #+#    #+#             */
+/*   Updated: 2023/11/15 13:50:45 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstrlen(char *s)
+char	*ft_strdup(const char *s1)
 {
-	int	i;
+	size_t	i;
+	char	*str;
 
 	i = 0;
-	if (s == NULL)
-		return (ft_putstrlen("(null)"));
-	while (s[i])
+	str = malloc(ft_strlen(s1) + 1);
+	while (s1[i])
 	{
-		ft_putcharlen(s[i]);
+		str[i] = s1[i];
 		i++;
 	}
-	return (i);
+	str[i] = '\0';
+	return (str);
 }

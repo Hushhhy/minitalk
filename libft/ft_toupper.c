@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstrlen.c                                     :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 13:47:04 by acarpent          #+#    #+#             */
-/*   Updated: 2024/06/24 14:03:26 by acarpent         ###   ########.fr       */
+/*   Created: 2023/11/11 11:42:52 by acarpent          #+#    #+#             */
+/*   Updated: 2023/11/11 11:44:27 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstrlen(char *s)
+int	ft_toupper(int c)
 {
-	int	i;
-
-	i = 0;
-	if (s == NULL)
-		return (ft_putstrlen("(null)"));
-	while (s[i])
-	{
-		ft_putcharlen(s[i]);
-		i++;
-	}
-	return (i);
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
 }

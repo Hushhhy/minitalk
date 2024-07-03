@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstrlen.c                                     :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 13:47:04 by acarpent          #+#    #+#             */
-/*   Updated: 2024/06/24 14:03:26 by acarpent         ###   ########.fr       */
+/*   Created: 2023/11/13 11:56:26 by acarpent          #+#    #+#             */
+/*   Updated: 2023/11/16 14:50:28 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstrlen(char *s)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	i;
+	unsigned char	*str;
+	unsigned char	cc;
+	size_t			i;
 
+	str = (unsigned char *) s;
+	cc = (unsigned char) c;
 	i = 0;
-	if (s == NULL)
-		return (ft_putstrlen("(null)"));
-	while (s[i])
+	while (i < n)
 	{
-		ft_putcharlen(s[i]);
+		if (str[i] == cc)
+			return ((void *) &str[i]);
 		i++;
 	}
-	return (i);
+	return (NULL);
 }

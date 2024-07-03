@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstrlen.c                                     :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acarpent <acarpent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 13:47:04 by acarpent          #+#    #+#             */
-/*   Updated: 2024/06/24 14:03:26 by acarpent         ###   ########.fr       */
+/*   Created: 2023/11/06 14:55:11 by acarpent          #+#    #+#             */
+/*   Updated: 2023/11/08 12:30:53 by acarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstrlen(char *s)
+int	ft_isascii(int c)
 {
-	int	i;
-
-	i = 0;
-	if (s == NULL)
-		return (ft_putstrlen("(null)"));
-	while (s[i])
-	{
-		ft_putcharlen(s[i]);
-		i++;
-	}
-	return (i);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }
+/*
+#include <stdio.h>
+
+int	main(int argc, char **argv)
+{
+	(void)argc;
+
+	ft_isascii(*argv[1]);
+	printf("%d", ft_isascii(*argv[1]));
+	return (0);
+}
+*/
